@@ -10,7 +10,7 @@
 		<relativePath />
 	</parent>
 	<groupId>com.aliyun.www</groupId>
-	<artifactId>Aliyun-Container-Service-Deploy</artifactId>
+	<artifactId>aliyun-container-service-deploy</artifactId>
 	<version>1.0</version>
 	<packaging>hpi</packaging>
 
