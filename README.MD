@@ -1,27 +1,19 @@
-## Jenkins插件设计   
-### 概述  
-从代码到容器服务目前缺少了很重要的一环，就是自动发布应用到容器服务的流程。   
+After installing the plugin,you'll get a new Build Step entry named "Aliyun Container Service Deploy". Fill the configuration and it will deploy the docker-compose configuration when the pre build step build successfully. 
 
-### 大致的设计与步骤  
-我们大致会按照三个阶段完成jenkins的开发      
-1.完成基本的jenkins的流程，从compose到容器服务的过程，只支持rolling-update        
-2.支持扩展的方式使用更多的API，利用配置文件读取更多约定的配置，并支持动态slave           
-3.支持持续集成的历史与记录，支持回滚等策略        
+#### Parameters
+###### MasterUrl 
+MasterUrl is the endpoint of a container cluster.you can find the value on the console of  <a href="https://cs.console.aliyun.com/#/cluster" target="_blank"/>Aliyun Container Service</a>.
 
-### 流程图   
-<img src="http://moyuan.oss-cn-beijing.aliyuncs.com/jenkins/6912376489ca1e2c6d68aaf9c25cdd4c.png" width=600px/>
+<img src="/picture/ded60b9589c65187ed6b1d8965bbae96.png" width=80% style="max-width=1000px"/>
+<img src="/picture/4446ae8b09a2a4a04e9488fdd4f07059.png" width=80% style="max-width=1000px"/>     
 
-<img src="http://moyuan.oss-cn-beijing.aliyuncs.com/jenkins/e2da11c53ea1d9d4d798f500d0242209.png"/>
+###### ApplicationName 
+Application is a logical concept in Aliyun Container Service.Application is the mininum unit of a single releasement.A standard application consist of several services and a service consist of serveral containers.If you want to deploy a application to Aliyun Container Service. You need to come up a awesome name firstly 😊.
+###### ComposeTemplate 
+ComposeTemplate is the configuration of the application. The blank requires the relative path of the docker-compose.If your docker-compose.yml is under the path of docker/docker-compose.yml.Just fill the blank with the path.
+###### HostCredetials 
+HostCredetials are the certs of the target cluster. You can visit the remote container cluster with the specific certs on any computer with a docker client.
 
-### 具体的实现
-扩展builder的扩展点，将容器服务相关的部分单独封装，在第二个阶段使用的动态slave会调用同一个位置。    
-
-
-### 资料与内容
-可扩展的挂载点： https://wiki.jenkins-ci.org/display/JENKINS/Extension+points    
-
-项目地址：http://gitlab.alibaba-inc.com/cos/jenkins-cos/tree/master    
-
-
-## 开发调试插件   
-mvn hpi:run 
+<img src="/picture/15e3bddcde04166a6b41843cab7642ec.png" width=80% style="max-width=1000px"/>         
+open the pem files , extract the content and fill the blank below.
+<img src="/picture/04d625cf2e2a982376e94768fca74755.png" width=80% style="max-width=1000px"/>
