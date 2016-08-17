@@ -17,7 +17,7 @@ import javax.annotation.CheckForNull;
 import javax.servlet.ServletException;
 
 import com.aliyun.www.cos.projects.Project;
-import com.aliyun.www.cos.projects.Project.ReturnMsg;
+import com.aliyun.www.cos.projects.ReturnMsg;
 import jenkins.model.Jenkins;
 import org.jenkinsci.plugins.docker.commons.credentials.DockerServerCredentials;
 import org.kohsuke.stapler.AncestorInPath;
@@ -191,8 +191,7 @@ public class DeployBuilder extends Builder implements SimpleBuildStep {
                 if("failed".equals(status)){
                     listener.getLogger().println(
                             "deploy failed! " + Objects.toString(status));
-                            new RuntimeException("deploy failed!");
-                            break;
+                            throw new RuntimeException("deploy failed!");
                 }
                 try {
                     listener.getLogger().println(
@@ -214,7 +213,7 @@ public class DeployBuilder extends Builder implements SimpleBuildStep {
 
         if (i == 0) {
             listener.getLogger().println("deploy failed, timeout");
-            new RuntimeException("deploy failed, timeout");
+            throw new RuntimeException("deploy failed, timeout");
         }
     }
 

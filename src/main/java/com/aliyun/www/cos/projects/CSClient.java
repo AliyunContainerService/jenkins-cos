@@ -59,9 +59,9 @@ public class CSClient {
     }
 
     public void setCredentials(String caCertS, String clientCertS, String ClientkeyS){
-        InputStream caCertIn = new ByteArrayInputStream(caCertS.getBytes());
-        InputStream clientCertIn = new ByteArrayInputStream(clientCertS.getBytes());
-        InputStream clientKeyIn = new ByteArrayInputStream(ClientkeyS.getBytes());
+        InputStream caCertIn = new ByteArrayInputStream(caCertS.getBytes(Charset.forName("UTF-8")));
+        InputStream clientCertIn = new ByteArrayInputStream(clientCertS.getBytes(Charset.forName("UTF-8")));
+        InputStream clientKeyIn = new ByteArrayInputStream(ClientkeyS.getBytes(Charset.forName("UTF-8")));
         BufferedReader clientKeyReader = new BufferedReader(new InputStreamReader(clientKeyIn,Charset.defaultCharset()));
         try {
             cf = CertificateFactory.getInstance("X.509");
