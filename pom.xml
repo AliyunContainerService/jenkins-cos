@@ -93,7 +93,7 @@
 		<groupId>org.jenkins-ci.plugins</groupId> <artifactId>credentials</artifactId> 
 		<version>1.9.4</version> </dependency> </dependencies> -->
 	<scm>
-  		<connection>scm:git:ssh://github.com/jenkinsci/aliyun-container-service-deploy-plugin.git</connection>
+  		<connection>scm:git:git://github.com/jenkinsci/aliyun-container-service-deploy-plugin.git</connection>
   		<developerConnection>scm:git:ssh://git@github.com/jenkinsci/aliyun-container-service-deploy-plugin.git</developerConnection>
   		<url>https://github.com/jenkinsci/aliyun-container-service-deploy-plugin</url>
 	  <tag>aliyun-container-service-deploy-0.1.0</tag>
