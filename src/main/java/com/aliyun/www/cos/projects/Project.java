@@ -8,39 +8,19 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
-
+import java.nio.charset.Charset;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Project {
     public String masterurl;
-    public String caCertS;
-    public String clientCertS;
-    public String clientkeyS;
     public List<String> projectNameList = new ArrayList<String>();
     public CSClient csClient;
     CloseableHttpClient httpclient;
 
-
-    public class ReturnMsg{
-        boolean isSuccess = true;
-        Integer returnCode;
-        String detailMsg = null;
-
-        public void setIsSuccess(boolean isSuccess){this.isSuccess = isSuccess;}
-        public boolean getIsSuccess(){return isSuccess;}
-        public void setReturnCode(Integer returnCode){this.returnCode = returnCode;}
-        public Integer getReturnCode(){return returnCode;}
-        public void setDetailMsg(String detailMsg){this.detailMsg = detailMsg;}
-        public String getDetailMsg(){return detailMsg;}
-    }
-
     public Project(String url,String caCertS, String clientCertS,String clientkeyS){
         masterurl=url + "/projects/";
-        this.caCertS=caCertS;
-        this.clientCertS = clientCertS;
-        this.clientkeyS = clientkeyS;
         csClient = new CSClient(caCertS,clientCertS,clientkeyS);
         httpclient = csClient.getHttpClient();
         GetProjects();
@@ -140,47 +120,24 @@ public class Project {
         return  returnMsg;
     }
 
-    public HttpPost GenerateHttpPost(String url, String yamlPathName, String projectName) {
+    public HttpPost GenerateHttpPost(String url, String compose, String projectName) {
         HttpPost httpPost = new HttpPost(url);
-        File yamlFile = new File(yamlPathName);
-        String yamlString = new String();
-        try {
-            FileReader fr = new FileReader(yamlFile);
-            StringBuilder sb = new StringBuilder();
-            BufferedReader bfr = new BufferedReader(fr);
-            for (String s = bfr.readLine(); s != null; s = bfr.readLine())
-                sb.append(s).append('\n');
-            yamlString = sb.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         JSONObject jsonParam = new JSONObject();
-        jsonParam.put("name", projectName);
-        jsonParam.put("template", yamlString);
+        jsonParam.put("name",projectName);
+        jsonParam.put("template",compose);
         System.out.println(jsonParam.toString());
-        if (null != jsonParam) {
-                StringEntity entity = new StringEntity(jsonParam.toString(),"utf-8");
-                entity.setContentEncoding("UTF-8");
-                entity.setContentType("application/json");
-                httpPost.setEntity(entity);
-            }
-        return httpPost;
+        if(null!=jsonParam){
+            StringEntity entity = new StringEntity(jsonParam.toString(),"utf-8");
+            entity.setContentEncoding("UTF-8");
+            entity.setContentType("application/json");
+            httpPost.setEntity(entity);
         }
+        return httpPost;
+
+    }
 
     public HttpPost GenerateHttpPost(String url, String compose, String projectName, String version){
         HttpPost httpPost = new HttpPost(url);
-//        File yamlFile = new File(yamlPathName);
-//        String yamlString = new String();
-//        try {
-//            FileReader fr = new FileReader(yamlFile);
-//            StringBuilder sb = new StringBuilder();
-//            BufferedReader bfr = new BufferedReader(fr);
-//            for (String s = bfr.readLine(); s != null; s = bfr.readLine())
-//                sb.append(s).append('\n');
-//            yamlString = sb.toString();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         JSONObject jsonParam = new JSONObject();
         jsonParam.put("name",projectName);
         jsonParam.put("template",compose);
