@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.aliyun.www</groupId>
 	<artifactId>aliyun-container-service-deploy</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<packaging>hpi</packaging>
 
 	<properties>
